@@ -30,3 +30,30 @@ let p2 = new Point(10, 20);
 let p3 = p1.add(p2); // {x:10,y:30}
 
 //#endregion
+
+let prom = function(imgStatus: string): Promise<{imgStatus:string}>{
+    return new Promise((resolve)=>{
+        console.log(`Status: ${imgStatus}`);
+        setTimeout(()=>{
+            resolve({imgStatus:imgStatus});
+        }, 1000);
+    })
+}
+
+let upload;
+let compress;
+let transfer;
+
+prom('uploading...')
+.then((res)=>{
+    upload = res;
+    return prom('compressing...');
+})
+.then((res)=>{
+    compress = res;
+    return prom('transfering...');
+})
+.then((res)=>{
+    transfer = res;
+    return prom('Image upload completed.');
+});
