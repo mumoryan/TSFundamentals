@@ -14,17 +14,22 @@ namespace decorator {
 
     // A method decorator takes a target, propertyKey, and descriptor
     function protect(target, propertyKey, descriptor) {
-      let original = descriptor.value;
-
-      descriptor.value = function(request){
-        if (request.token !== "123"){
-          throw new Error("forbidden!");
-        }
-        
-      }
-      
+      // Logs to protectedMethods
       const className = target.constructor.name;
       protectedMethods.push(className + "." + propertyKey);
+
+      const originalFunction = descriptor.value;
+    
+      descriptor.value = function(request) {
+        if (request.token !== "123") {
+          throw new Error("forbiden!");
+        }
+        const bindedOriginalFunction = originalFunction.bind(this);
+        const result = bindedOriginalFunction(request);
+        return result;
+      };
+    
+      return descriptor;
     }
     @registerEndpoint
     class Families {
@@ -35,8 +40,7 @@ namespace decorator {
         get(){
             return this.houses;
         }
-        // Adds new houses to the list
-        @protect
+        // Adds new houses to the list\
         post(request){
             this.houses.push(request.body);
         }
@@ -51,15 +55,15 @@ namespace decorator {
         get() {
           return this.castles;
         }
-        // Adds new castles to the list
-        @protect
+        // Adds new castles to the list\
         post(request) {
           this.castles.push(request.body);
         }
     }
 
-    console.log(httpEndpoints) // {"/families": Families, "/castles": Castles}
-    httpEndpoints["/families"].get() // ["Lannister", "Targaryen"]
+    console.log(httpEndpoints); // {"/families": Families, "/castles": Castles}
+    httpEndpoints["/families"].get({token: "123"}); // ["Lannister", "Targaryen"]
+    //httpEndpoints["/families"].get({}) // Uncaught Error: forbiden!
 
     console.log(protectedMethods) // ["Families.get", "Families.post"]
 }
