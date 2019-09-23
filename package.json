@@ -9,6 +9,8 @@
   },
   "devDependencies": {},
   "scripts": {
+    "start": "npm install --no-optional && npm run build",
+    "build": "tsc -p tsconfig.json",
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "./node_modules/.bin/tsc.cmd -b ./tsconfig.json -w"
   },
