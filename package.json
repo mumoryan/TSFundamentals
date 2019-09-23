@@ -1,0 +1,25 @@
+{
+  "name": "tsfundamentals",
+  "version": "1.0.0",
+  "description": "A test project used to learn TypeScript",
+  "main": "index.js",
+  "dependencies": {
+    "typescript": "^3.6.3",
+    "big.js": "^5.2.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "./node_modules/.bin/tsc.cmd -b ./tsconfig.json -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mumoryan/TSFundamentals.git"
+  },
+  "author": "Ryan Ren",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mumoryan/TSFundamentals/issues"
+  },
+  "homepage": "https://github.com/mumoryan/TSFundamentals#readme"
+}
