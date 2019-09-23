@@ -31,6 +31,8 @@ let p3 = p1.add(p2); // {x:10,y:30}
 
 //#endregion
 
+
+//#region Promises
 let prom = function(imgStatus: string): Promise<{imgStatus:string}>{
     return new Promise((resolve)=>{
         console.log(`Status: ${imgStatus}`);
@@ -57,3 +59,19 @@ prom('uploading...')
     transfer = res;
     return prom('Image upload completed.');
 });
+
+Promise.resolve(123)
+    .then((res) => {
+        console.log(res); // 123
+        return 456;
+    })
+    .then((res) => {
+        console.log(res); // 456
+        return Promise.resolve(123); // Notice that we are returning a Promise
+    })
+    .then((res) => {
+        console.log(res); // 123 : Notice that this `then` is called with the resolved value
+        return 123;
+    })
+
+//#endregion

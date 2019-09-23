@@ -1,2 +1,4 @@
 *.suo
 .vs/
+bin/
+node_modules/
